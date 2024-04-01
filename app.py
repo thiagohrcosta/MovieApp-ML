@@ -61,6 +61,24 @@ def login():
     
   return jsonify({'message': 'Invalid credentials'}), 400
 
+@app.route('/fetch_categories', methods=['POST'])
+def fetch_categories():
+  import requests
+  
+  api_categories_url = f'https://api.themoviedb.org/3/genre/movie/list?language=en&api_key={movie_database_api_key}'
+  response_categories = requests.get(api_categories_url)
+  data_categories = response_categories.json()
+
+  if response_categories.status_code == 200:
+    for category_data in data_categories.get('genres', []):
+      category = Category(category_external_id=category_data['id'], title=category_data['name'])
+      
+      db.session.add(category)
+      db.session.commit()
+    
+    return jsonify({'message': 'Categories fetched and stored successfully'})
+  else:
+      return jsonify({'error': 'Failed to fetch categories from the API'})
 
 if __name__ == '__main__':
   app.run(debug=True)

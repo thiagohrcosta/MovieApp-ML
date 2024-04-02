@@ -80,5 +80,12 @@ def fetch_categories():
   else:
       return jsonify({'error': 'Failed to fetch categories from the API'})
 
+@app.route('/categories', methods=['GET'])
+def list_categories():
+  categories = Category.query.all()
+  serialized_categories = [category.serialize() for category in categories]
+  return jsonify(serialized_categories)
+
 if __name__ == '__main__':
   app.run(debug=True)
+

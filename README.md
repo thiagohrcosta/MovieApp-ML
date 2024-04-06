@@ -30,13 +30,17 @@ For this first version, Insomnia was used to make the requests, but you can use 
             "password": "123456"
         }` 
         
+![image](https://github.com/thiagohrcosta/MovieApp-ML/assets/28869405/655c5b45-f7eb-43c8-a030-de559ef55474)
 
 ### Categories (Movie Genres)
 
 2.  **Fetch Categories**
     -   Endpoint: `POST http://localhost:5000/fetch_categories`
+![image](https://github.com/thiagohrcosta/MovieApp-ML/assets/28869405/e082ba0a-e9ce-409a-bd68-9bc52801bded)
+
 3.  **List Categories**
     -   Endpoint: `GET http://localhost:5000/categories`
+![image](https://github.com/thiagohrcosta/MovieApp-ML/assets/28869405/92f4797a-b130-439d-910e-8fea5fdce5b8)
 
 ### Movies
 
@@ -44,6 +48,7 @@ For this first version, Insomnia was used to make the requests, but you can use 
     -   Endpoint: `POST http://localhost:5000/fetch_movies`
 5.  **List Movies**
     -   Endpoint: `GET http://localhost:5000/movies`
+![image](https://github.com/thiagohrcosta/MovieApp-ML/assets/28869405/755f9581-efbe-4c19-8b1b-9803ac658318)
 
 ### Favorites
 
@@ -54,7 +59,9 @@ For this first version, Insomnia was used to make the requests, but you can use 
             "user_id": 1,
             "movie_title": "The Expendables"
         }` 
-        
+
+![image](https://github.com/thiagohrcosta/MovieApp-ML/assets/28869405/67371e1f-1df2-48aa-83af-2ea92cc8de03)
+
 7.  **Favorite Movies by User**
     
     -   Endpoint: `GET http://localhost:5000/favorite/user/1`
@@ -73,6 +80,9 @@ For this first version, Insomnia was used to make the requests, but you can use 
 8.  **Movie Recommendations**
     
     -   Endpoint: `GET http://localhost:5000/recommendations/user/1`
+
+![image](https://github.com/thiagohrcosta/MovieApp-ML/assets/28869405/dec2731f-d876-4937-9fd0-31a597931dca)
+
 
 ## Future Improvements
 

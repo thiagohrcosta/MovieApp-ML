@@ -13,6 +13,10 @@ from dotenv import load_dotenv
 import os
 import requests
 
+from sklearn.metrics.pairwise import cosine_similarity
+import pandas as pd
+import numpy as np
+
 load_dotenv()
 
 movie_database_api_key = os.getenv("MOVIE_DATABASE_API_KEY")
@@ -211,7 +215,49 @@ def add_favorite():
   db.session.add(favorite_data)
   db.session.commit()
 
-  return jsonify({'message': f'{created_movie_at_favorite.id} was successfully added to favorites.'})
+  return jsonify({'message': f'{created_movie_at_favorite} was successfully added to favorites.'})
+
+def recommend_movies_collaborative(movie_names, movies_df, n_recommendations=3):
+    recommended_movies = []
+    all_movie_data = pd.DataFrame(columns=['Title', 'Release Date', 'vote_average', 'popularity'])
+
+    for movie_name in movie_names:
+        movie_data = movies_df[movies_df['Title'] == movie_name]
+        if not movie_data.empty:
+            all_movie_data = pd.concat([all_movie_data, movie_data])
+
+    if all_movie_data.empty:
+        return recommended_movies
+
+    user_profile = all_movie_data[['vote_average', 'popularity']].mean(axis=0).values.reshape(1, -1)
+    similarities = cosine_similarity(user_profile, movies_df[['vote_average', 'popularity']])
+    similar_movie_indices = similarities.argsort()[0][-n_recommendations-1:-1][::-1]
+    recommended_movies.extend(movies_df.iloc[similar_movie_indices]['Title'].tolist())
+
+    return recommended_movies
+
+@app.route('/recomendations/user/<int:user_id>', methods=['GET'])
+def user_recomendation(user_id):
+  user = User.query.get(user_id)
+  favorites = Favorite.query.filter_by(user_id=user.id).all()
+  
+  movies = Movie.query.all()
+
+  favorite_titles = []
+
+  for favorite in favorites:
+      movie = Movie.query.get(favorite.movie_id)
+      favorite_titles.append(movie.title)
+
+
+  movies_df = pd.DataFrame([
+    {'Title': movie.title, 'vote_average': movie.vote_average, 'popularity': movie.popularity, 'category': movie.category} 
+    for movie in movies
+  ])
+
+  result = recommend_movies_collaborative(favorite_titles, movies_df)
+
+  return jsonify({'recommendations': result})
 
 if __name__ == '__main__':
   app.run(debug=True)

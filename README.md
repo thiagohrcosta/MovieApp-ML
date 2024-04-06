@@ -8,6 +8,8 @@ The Movie APP is a project created to apply some of the concepts learned through
 
 The main objective was to create a Python API with Flask capable of consuming other external APIs, specifically from the website [TheMovieDB](https://www.themoviedb.org/). With this capability, our API can consume external data, storing it in its own MySQL database running in Docker, which contains a vast amount of movie information. Utilizing this data, our system can generate new movie recommendations for the user using Scikit-Learn.
 
+Note: The recommendation system is not perfect yet, as it currently utilizes only popularity and rating data to generate recommendations.
+
 ## Features
 
 -   Users can search for and add movies to their favorites.
@@ -29,8 +31,7 @@ For this first version, Insomnia was used to make the requests, but you can use 
             "username": "John Doe",
             "password": "123456"
         }` 
-        
-![image](https://github.com/thiagohrcosta/MovieApp-ML/assets/28869405/655c5b45-f7eb-43c8-a030-de559ef55474)
+      - ![image](https://github.com/thiagohrcosta/MovieApp-ML/assets/28869405/655c5b45-f7eb-43c8-a030-de559ef55474)
 
 ### Categories (Movie Genres)
 
@@ -84,7 +85,7 @@ For this first version, Insomnia was used to make the requests, but you can use 
 
 ## Future Improvements
 
-The ultimate goal is to create a project in a laid-back manner and practice Python development concepts. In this initial phase, the focus is not on creating code with Object-Oriented Programming (OOP), SOLID principles or other best practices, these aspects can be explored in other projects on my [GitHub](https://github.com/thiagohrcosta).
+The ultimate goal is to create a project in a laid-back manner and practice Python development concepts. In this initial phase, the focus is not on creating code with Object-Oriented Programming (OOP), SOLID principles or other best practices, these aspects can be explored in other projects on my [GitHub](https://github.com/thiagohrcosta). 
 
 ## How to Run
 
